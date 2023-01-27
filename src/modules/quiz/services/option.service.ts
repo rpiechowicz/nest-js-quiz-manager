@@ -15,9 +15,11 @@ export class OptionService {
     option: CreateOptionDto,
     question: Question,
   ): Promise<Option> {
+    const isCorrect: boolean = /true/.test(String(option.isCorrect));
+
     const newOption = await this.optionRepository.save({
       text: option.text,
-      isCorrect: Boolean(option.isCorrect),
+      isCorrect,
     });
 
     question.options = [...question.options, newOption];

@@ -20,7 +20,7 @@ export class QuizService {
   async getQuizById(id: string): Promise<Quiz> {
     return await this.quizRepository.findOneOrFail({
       where: { id },
-      relations: ['questions'],
+      relations: ['questions', 'questions.options'],
     });
   }
 
