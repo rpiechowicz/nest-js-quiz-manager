@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
@@ -14,6 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Option } from '../entity/option.entity';
+import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 
 @ApiTags('Option')
 @Controller('question/option')
@@ -25,6 +27,7 @@ export class OptionController {
 
   @Post('/')
   @UsePipes(ValidationPipe)
+  @UseGuards(JwtAuthGuard)
   @ApiCreatedResponse({ type: Option })
   @ApiBadRequestResponse()
   async saveOptionToQuestion(@Body() createOption: CreateOptionDto) {

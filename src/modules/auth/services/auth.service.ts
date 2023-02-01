@@ -15,10 +15,6 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(): Promise<any> {
-    return;
-  }
-
   async validateUserCredentials(
     email: string,
     password: string,
