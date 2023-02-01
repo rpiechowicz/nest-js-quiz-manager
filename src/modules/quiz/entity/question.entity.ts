@@ -8,12 +8,15 @@ import {
 } from 'typeorm';
 import { Quiz } from './quiz.entity';
 import { Option } from './option.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity('questions')
 export class Question extends BaseEntity {
+  @ApiProperty()
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @ApiProperty()
   @Column()
   question: string;
 

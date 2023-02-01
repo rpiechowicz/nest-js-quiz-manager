@@ -9,7 +9,13 @@ import { CreateQuestionDto } from '../dto/CreateQuestion.dto';
 import { QuestionService } from '../services/question.service';
 import { Question } from '../entity/question.entity';
 import { QuizService } from '../services/quiz.service';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiTags('Question')
 @Controller('question')
 export class QuestionController {
   constructor(
@@ -19,6 +25,8 @@ export class QuestionController {
 
   @Post('/')
   @UsePipes(ValidationPipe)
+  @ApiCreatedResponse({ type: Question })
+  @ApiBadRequestResponse()
   async saveQuestion(@Body() question: CreateQuestionDto): Promise<Question> {
     const quiz = await this.quizService.getQuizById(question.quizId);
     return this.questionService.createQuestion(question, quiz);
